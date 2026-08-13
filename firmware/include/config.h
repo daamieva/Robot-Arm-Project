@@ -31,13 +31,17 @@ static constexpr int ADC_MAX = 1023;
 // Main loop timing
 static constexpr int LOOP_DELAY_MS = 20;
 
-// Calibration mode: when true, joint angle limits below are ignored (servos
-// can travel the full 0-180 deg range) and each joint's pot reading + angle
-// is printed to Serial so mechanical limits can be found by hand. Flip back
-// to false once JOINT_LIMIT_MIN_DEG/MAX_DEG and the per-joint limits in
-// JOINTS[] below are set to measured values.
+// Calibration mode: when true, joint angle limits below are IGNORED and every
+// servo can travel the full 0-180 deg range — this is a safety bypass, not a
+// debug toggle. Only set true while actively hand-finding mechanical limits
+// with nothing attached that could be damaged by over-travel. Must be false
+// for normal operation so JOINT_LIMIT_MIN_DEG/MAX_DEG and the per-joint
+// limits in JOINTS[] below are actually enforced.
 static constexpr bool CALIBRATION_MODE = false;
-static constexpr unsigned long CALIBRATION_PRINT_INTERVAL_MS = 200;
+
+// Serial monitor refresh rate for the pot/angle readout in main.cpp — always
+// active, independent of CALIBRATION_MODE.
+static constexpr unsigned long SERIAL_PRINT_INTERVAL_MS = 200;
 
 // Deadband filter: ignore angle changes smaller than DEADBAND_DEG. This is a
 // temporary software workaround for cross-talk between joints — all 6 servos

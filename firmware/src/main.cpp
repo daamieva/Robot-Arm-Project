@@ -35,7 +35,7 @@ void setup() {
 
 void loop() {
     static unsigned long lastPrintTime = 0;
-    bool shouldPrint = CALIBRATION_MODE && (millis() - lastPrintTime >= CALIBRATION_PRINT_INTERVAL_MS);
+    bool shouldPrint = millis() - lastPrintTime >= SERIAL_PRINT_INTERVAL_MS;
 
     for (uint8_t i = 0; i < NUM_JOINTS; i++) {
         const JointConfig &joint = JOINTS[i];
